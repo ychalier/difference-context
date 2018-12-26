@@ -47,18 +47,19 @@ class Ontology(owl.Ontology):
             print(property, end=" ")
         print()
 
+if __name__ == "__main__":
 
-# load ontology in folder 000
-source = Ontology("000")
-source.demo()
+    # load ontology in folder 000
+    source = Ontology("000")
+    source.demo()
 
-# load ontology in folder 001
-target = Ontology("001")
-target.demo()
+    # load ontology in folder 001
+    target = Ontology("001")
+    target.demo()
 
-print("\n----- FIRST INDIVIDUAL DEMO -----")
-for individual in target.individuals():
-    for property in individual.get_properties():
-        for value in property[individual]:
-            print("{} {} {}".format(individual, property, value))
-    break
+    print("\n----- FIRST INDIVIDUAL DEMO -----")
+    for individual in target.individuals():
+        for property in individual.get_properties():
+            for value in property[individual]:
+                print("{} {} {}".format(individual, property, value))
+        break
