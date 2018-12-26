@@ -7,6 +7,19 @@ The aim of this project is to propose a formal definition of the contextual diff
  - [project description](https://www.lri.fr/~sais/D2K/projects/index.html)
  - [IIMB datasets](http://oaei.ontologymatching.org/2010/im/iimb_large_30082010.tgz)
 
+## todo list
+
+1. [x] OWL parser using an OWL API for Python
+2. [ ] Difference subgraph computation, for a given pair of entities
+   - use a maximum depth of exploration
+   - only work on matching relations
+   - *(optimization) explore nodes only once as far as possible*
+3. [ ] Main process structure (using multiprocessing)
+4. [ ] User interface to nicely plot the generated context subgraphs
+5. [ ] Evaluation
+   - computation time
+   - what relations are
+
 ## virtual environment
 
 The following setup is done for **Python v3.5.2**.
@@ -35,15 +48,8 @@ Install the packages from `requirements.txt` with
 
     pip install -r requirements.txt
 
-## todo list
 
- 1. [ ] OWL parser using an OWL API for Python
- 2. [ ] Difference subgraph computation, for a given pair of entities
-    - use a maximum depth of exploration
-    - only work on matching relations
-    - *(optimization) explore nodes only once as far as possible*
- 3. [ ] Main process structure (using multiprocessing)
- 4. [ ] User interface to nicely plot the generated context subgraphs
- 5. [ ] Evaluation
-    - computation time
-    - what relations are
+## OWL API
+
+ - [Owlready2 package](https://pypi.org/project/Owlready2/)
+ - [OWLready2 documentation](https://owlready2.readthedocs.io/en/latest/)
