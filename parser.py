@@ -38,6 +38,12 @@ class Ontology(owl.Ontology):
         owl.Ontology.__init__(self, owl.World(), base_iri=self.iri+"#")
         self.load()
 
+    def select(self, query):
+        search = self.search(iri="*"+query)
+        if len(search) > 0:
+            return search[0]
+        return None
+
     def demo(self):
         print("\n----- CLASSES -----")
         for class_ in self.classes():

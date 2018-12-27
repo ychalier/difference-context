@@ -59,8 +59,8 @@ if __name__ == "__main__":
     source = Ontology("000")
     target = Ontology("001")
 
-    individual_source = source.search(iri="*botswana")[0]
-    individual_target = target.search(iri="*item1557833595821314299")[0]
+    individual_source = source.select("botswana")
+    individual_target = target.select("item1557833595821314299")
 
     graph = difference(individual_source, individual_target, 3)
 
