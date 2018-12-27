@@ -40,7 +40,8 @@ def difference(idv_a, idv_b, depth=1, verbose=False):
                         # `value_a` and `value_b` are simple strings, so we just
                         # match them
                         if value_a != value_b:
-                            graph[str(ppt_a)] = (value_a, value_b)
+                            graph[str(ppt_a)] = {
+                                "value_a": value_a, "value_b": value_b}
 
     if verbose:
         print("Exiting difference.")
