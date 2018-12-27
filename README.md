@@ -10,11 +10,11 @@ The aim of this project is to propose a formal definition of the contextual diff
 ## todo list
 
 1. [x] OWL parser using an OWL API for Python
-2. [ ] Difference subgraph computation, for a given pair of entities
+2. [x] Difference subgraph computation, for a given pair of entities
    - use a maximum depth of exploration
    - only work on matching relations
    - *(optimization) explore nodes only once as far as possible*
-3. [ ] Main process structure (using multiprocessing)
+3. [x] Main process structure (using multiprocessing)
 4. [ ] User interface to nicely plot the generated context subgraphs
 5. [ ] Evaluation
    - computation time
@@ -52,4 +52,4 @@ Install the packages from `requirements.txt` with
 ## OWL API
 
  - [Owlready2 package](https://pypi.org/project/Owlready2/)
- - [OWLready2 documentation](https://owlready2.readthedocs.io/en/latest/)
+ - [Owlready2 documentation](https://owlready2.readthedocs.io/en/latest/)
