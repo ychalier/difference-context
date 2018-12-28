@@ -49,25 +49,28 @@ class Task:
         return result
 
 
-def process(folder_id, max_iter=None, n_jobs=None):
+def process(folder_id, max_iter=None, n_jobs=None, verbose=False):
     if n_jobs is None:
         n_jobs = max(1, multiprocessing.cpu_count() - 1)
 
     queue_tasks = multiprocessing.JoinableQueue()
     queue_results = multiprocessing.Queue()
 
-    print("Instanciating workers...")
+    if verbose:
+        print("Instanciating workers...")
     jobs = [Worker("000", folder_id, queue_tasks, queue_results)
             for _ in range(n_jobs)]
 
     source = Ontology("000")
     target = Ontology(folder_id)
 
-    print("Starting jobs...")
+    if verbose:
+        print("Starting jobs...")
     for job in jobs:
         job.start()
 
-    print("Sending tasks...")
+    if verbose:
+        print("Sending tasks...")
     n_tasks = 0
     for idv_a in source.individuals():
         for idv_b in target.individuals():
@@ -78,7 +81,8 @@ def process(folder_id, max_iter=None, n_jobs=None):
         if n_tasks >= max_iter:
             break
 
-    print("Sending poison pills...")
+    if verbose:
+        print("Sending poison pills...")
     for _ in range(n_jobs):
         queue_tasks.put(None)
 
