@@ -1,0 +1,54 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://example.com/root.json",
+  "type": "object",
+  "title": "The Root Schema",
+  "required": [
+    "items"
+  ],
+  "properties": {
+    "items": {
+      "$id": "#/properties/items",
+      "type": "array",
+      "title": "The Items Schema",
+      "items": {
+        "$id": "#/properties/items/items",
+        "type": "object",
+        "title": "The Items Schema",
+        "required": [
+          "idv_a",
+          "graph",
+          "idv_b"
+        ],
+        "properties": {
+          "idv_a": {
+            "$id": "#/properties/items/items/properties/idv_a",
+            "type": "string",
+            "title": "The Idv_a Schema",
+            "default": "",
+            "examples": [
+              "268"
+            ],
+            "pattern": "^(.*)$"
+          },
+          "graph": {
+            "$id": "#/properties/items/items/properties/graph",
+            "type": "object",
+            "title": "The Graph Schema"
+          },
+          "idv_b": {
+            "$id": "#/properties/items/items/properties/idv_b",
+            "type": "string",
+            "title": "The Idv_b Schema",
+            "default": "",
+            "examples": [
+              "item1000019609328345263"
+            ],
+            "pattern": "^(.*)$"
+          }
+        }
+      }
+    }
+  }
+}
