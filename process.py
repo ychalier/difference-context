@@ -49,7 +49,19 @@ class Task:
         return result
 
 
-def process(folder_id, max_iter=None, n_jobs=None, verbose=False,source_folder_id=None):
+def size(graph):
+    if not graph:
+        return 0
+    else :
+        s=0
+        for key in graph:
+            s=s+1+size(graph[key])
+        return s
+
+
+
+def process(folder_id, max_iter=None, n_jobs=None, verbose=False, source_folder_id=None):
+
     if n_jobs is None:
         n_jobs = max(1, multiprocessing.cpu_count() - 1)
 
@@ -99,6 +111,14 @@ def process(folder_id, max_iter=None, n_jobs=None, verbose=False,source_folder_i
         sys.stdout.flush()
         if n_completed == n_tasks:
             break
+
+    s=0
+    for res in results:
+        s=s+size(res['graph'])
+    avg=s/len(results)
+    print("\nAverage Difference Graph Size: {0}".format(avg))
+
+
 
     with open(folder_id + ".json", "w") as output_file:
         json.dump({"items": results}, output_file)

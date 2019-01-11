@@ -1,8 +1,7 @@
 import owlready2 as owl
-import networkx as nx
-import matplotlib.pyplot as plt
 
 from parser import Ontology
+import graphics
 
 
 
@@ -99,103 +98,6 @@ def plot(graph, prefix=""):
             print(prefix + key, "\t", value_a, "//", value_b)
 
 
-def build_edge_list(graph,parent):
-    """ Transforms dictionary graph to an edge list starting from a fictional root
-
-    Recursively adds directed edges between a property and its object property.
-
-    If the values of the properties are stored, they are added as leafs
-
-    Parameters
-    ----------
-    graph: Dictionary
-        A recuresive graph whose each key is a node label, and the value is the subgraph representing the neighbor nodes
-    
-    parent: string
-        The label of the parent graph 
-
-    Returns
-    -------
-    list
-        A list of pairs representing the directed edges of the graph
-
-
-    """
-    edge_list=[]
-
-    for key in graph:
-
-        edge_list.append((parent,key))
-
-        # if there are no values stored
-        if set(graph[key].keys()) != set(["a", "b"]):
-            # recursively add the edges of the child graph
-            edge_list=edge_list+build_edge_list(graph[key],key)
-
-        else:  # if the values are kept, include them as leaves
-            value_a = graph[key]["a"][:20]
-            value_b = graph[key]["b"][:20]
-            edge_list.append((key,"val1:"+value_a))
-            edge_list.append((key,"val2:"+value_b))
-        
- 
-    return edge_list
-
-
-def visualize(graph):
-    """ Visualizes the differnece graph as a tree
-
-    Generates a visualisation for a differnece graph as a tree using Networkx 
-
-    Parameters
-    ----------
-    graph: Dictionary
-        A recuresive graph whose each key is a node label, and the value is the subgraph representing the neighbor nodes
-
-
-
-    """
-
-    # Adding a fictional root labeled 'Difference'
-    edge_list=build_edge_list(graph,"Difference")
-    G=nx.DiGraph()
-    for (parent,child) in edge_list:
-        G.add_edge(parent,child)
-    
-    # Define the positions of the nodes so the graph has a top down directed tree form
-    pos = hierarchy_pos(G,"Difference")   
-
-    # Drawing the nodes in their predefined positions 
-    nx.draw(G, pos=pos, with_labels=True)
-    plt.show()
-
-    return
-
-
-
-def hierarchy_pos(G, root, width=1., vert_gap = 0.2, vert_loc = 0, xcenter = 0.5, 
-                  pos = None, parent = None):
-    """ Utiltiy function that define the positions of the nodes  of a directed acyclic graph as a tree
-
-    """
-
-    if pos == None:
-        pos = {root:(xcenter,vert_loc)}
-    else:
-        pos[root] = (xcenter, vert_loc)
-
-    neighbors = list(G.neighbors(root)) 
-    if len(neighbors)!=0:
-        dx = width/len(neighbors) 
-        nextx = xcenter - width/2 - dx/2
-        for neighbor in neighbors:
-            nextx += dx
-            pos = hierarchy_pos(G,neighbor, width = dx, vert_gap = vert_gap, 
-                                vert_loc = vert_loc-vert_gap, xcenter=nextx, pos=pos, 
-                                parent = root)
-    return pos
-
-    
 
 
 # if the script is imported by another one, this will NOT be executed
@@ -203,12 +105,23 @@ if __name__ == "__main__":
     source = Ontology("000")
     target = Ontology("001")
 
-    individual_source = source.select("botswana")
-    individual_target = target.select("item1557833595821314299")
+    individual_source = source.select("268" )
+    individual_target = target.select("item1403989431223340038" )
+
+    # other examples
+
+    #ewan_mcgregor
+    #item7523356662821706086
+
+    #'268'
+    #'item6757422427332762147'
+    
+
+    #'268'
+    #'item1403989431223340038'
+    
 
     graph = difference(individual_source, individual_target, 3)
-
     plot(graph)
-    visualize(graph)
-
+    graphics.visualize(graph)
 
