@@ -59,7 +59,9 @@ def size(graph):
         return s
 
 
-def process(folder_id, max_iter=None, n_jobs=None, verbose=False):
+
+def process(folder_id, max_iter=None, n_jobs=None, verbose=False, source_folder_id=None):
+
     if n_jobs is None:
         n_jobs = max(1, multiprocessing.cpu_count() - 1)
 
@@ -68,10 +70,14 @@ def process(folder_id, max_iter=None, n_jobs=None, verbose=False):
 
     if verbose:
         print("Instanciating workers...")
-    jobs = [Worker("000", folder_id, queue_tasks, queue_results)
-            for _ in range(n_jobs)]
-
-    source = Ontology("000")
+    if(source_folder_id is None):
+        source_folder_id = '000'
+        
+    jobs = [Worker(source_folder_id, folder_id, queue_tasks, queue_results)
+                for _ in range(n_jobs)]
+        
+    
+    source = Ontology(source_folder_id)
     target = Ontology(folder_id)
 
     if verbose:
